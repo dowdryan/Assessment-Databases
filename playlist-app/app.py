@@ -5,7 +5,8 @@ from forms import PlaylistForm, SongForm, NewSongForPlaylistForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "I'LL NEVER TELL!!"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ryan:password@localhost/playlist_app'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ryan:password@localhost/playlist-app'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///playlist_app?host=/var/run/postgresql'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
@@ -40,6 +41,7 @@ def show_all_playlists():
 def show_playlist(playlist_id):
     """Show detail on specific playlist."""
     playlist = Playlist.query.get_or_404(playlist_id)
+    # playlist = Playlist.query.join(Song).filter_by()
     return render_template("playlist.html",
                            playlist=playlist)
 
